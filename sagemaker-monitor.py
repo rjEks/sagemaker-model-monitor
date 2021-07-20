@@ -72,6 +72,16 @@ class Settings:
         except Exception as e:
             print(e)
 
+    def invoke_sagemaker_endpoint(endpoint):
+        from sagemaker.predictor import Predictor
+        from sagemaker.serializers import CSVSerializer
+        import time
+    
+    
     @property
     def bucket(self):
         return self._bucket
+
+
+
+
