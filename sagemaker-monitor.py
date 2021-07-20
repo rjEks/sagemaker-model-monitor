@@ -40,8 +40,6 @@ class Settings:
         except Exception as e:
             print(e)
 
-
-
     def deploy_sagemaker_endpoint(self):
         """
         Deploy de um Sagemaker endpoint utilizando um Sagemaker model como base
