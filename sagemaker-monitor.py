@@ -76,6 +76,13 @@ class Settings:
         from sagemaker.predictor import Predictor
         from sagemaker.serializers import CSVSerializer
         import time
+        
+        #Geracao dos arquivos de teste
+        
+        #Predictor
+        predictor = Predictor(endpoint_name=endpoint.endpoint_name, serializer=CSVSerializer())
+        
+    
     
     
     @property
