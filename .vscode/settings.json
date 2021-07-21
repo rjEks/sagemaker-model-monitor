@@ -1,0 +1,8 @@
+{
+    "[python]": {
+
+        "editor.wordBasedSuggestions": false,
+        
+    },
+    "python.pythonPath": "C:/Users/VAIO/Anaconda3/pythonw.exe"
+}

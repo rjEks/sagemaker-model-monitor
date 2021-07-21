@@ -4,12 +4,13 @@ import os
 import re
 import json
 from sagemaker import get_execution_role, session
+import pandas as pd
 
 #Regiao
-#boto3.Session().region_name
+boto3.Session().region_name
 
 #role
-#role = get_execution_role
+role = get_execution_role
 
 class Settings:
 
@@ -72,18 +73,20 @@ class Settings:
         except Exception as e:
             print(e)
 
-    def invoke_sagemaker_endpoint(endpoint):
+    def invoke_sagemaker_endpoint(endpoint,filepath):
         from sagemaker.predictor import Predictor
-        from sagemaker.serializers import CSVSerializer
+        from sagemaker.serializers import CSVSerializer        
         import time
         
         #Geracao dos arquivos de teste
+        sample_test_file = generate_test_file(filepath)
         
         #Predictor
         predictor = Predictor(endpoint_name=endpoint.endpoint_name, serializer=CSVSerializer())
-        
-    
-    
+
+    def generate_test_file(filepath):
+        file = filepath
+        total_records = sum(1 for line in open(file))
     
     @property
     def bucket(self):
