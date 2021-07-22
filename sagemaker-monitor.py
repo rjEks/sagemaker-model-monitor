@@ -5,6 +5,7 @@ import re
 import json
 from sagemaker import get_execution_role, session
 import pandas as pd
+import time
 
 #Regiao
 boto3.Session().region_name
@@ -74,19 +75,30 @@ class Settings:
             print(e)
 
     def invoke_sagemaker_endpoint(endpoint,filepath):
+        
         from sagemaker.predictor import Predictor
         from sagemaker.serializers import CSVSerializer        
         import time
         
         #Geracao dos arquivos de teste
         sample_test_file = generate_test_file(filepath)
-        
+                
         #Predictor
         predictor = Predictor(endpoint_name=endpoint.endpoint_name, serializer=CSVSerializer())
 
+        for row in sample_test_file:
+            payload = row.rstrip("\n")
+            response = predictor.predict(data=payload)
+            time.sleep(1)
+        
+        return True
+
     def generate_test_file(filepath):
-        file = filepath
-        total_records = sum(1 for line in open(file))
+         n = sum(1 for line in open(filepath))
+        subsample = 181
+        skip = sorted(random.sample(range(n),n-subsample))
+        file= pandas.read_csv(filename, skiprows=skip)
+        return file
     
     @property
     def bucket(self):
